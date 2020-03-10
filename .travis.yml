@@ -4,15 +4,15 @@ jobs:
   include:
     - os: linux
       compiler: gcc
-    - os: linux
-      compiler: clang
+    # - os: linux
+    #   compiler: clang
     # gcc is just a link to clang on OS X so no need to run it without
     # sanitizers
-    - os: osx
-      compiler: gcc
-      env: CONFIGURE_EXTRA=--with-sanitize=basic
-    - os: osx
-      compiler: clang
+    # - os: osx
+    #   compiler: gcc
+    #   env: CONFIGURE_EXTRA=--with-sanitize=basic
+    # - os: osx
+    #   compiler: clang
 
 env:
   global:
@@ -51,10 +51,10 @@ script:
 
 after_success:
  - if [ "$COVERITY_SCAN_BRANCH" != 1 -a "$CC" = gcc ]; then
-     coveralls --encoding iso-8859-1 --build-root src/ \
-                                     --exclude tests \
-                                     --exclude src/utils/parson.c \
-                                     --exclude src/utils/xxhash.c \
+     coveralls --encoding iso-8859-1 --build-root src/
+                                     --exclude tests
+                                     --exclude src/utils/parson.c
+                                     --exclude src/utils/xxhash.c
                                      --gcov-options '\-p';
    fi
 
